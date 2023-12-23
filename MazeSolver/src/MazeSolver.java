@@ -4,7 +4,7 @@ public class MazeSolver {
 	
 	// static so that in can be accessed in main function
 	static int[][] maze= {
-			{2,1,1,1},
+			{2,0,1,1},
 			{1,0,1,1},
 			{0,0,0,1}
 	};
@@ -29,7 +29,7 @@ public class MazeSolver {
 			// down
 			if (isValid(y+1,x)) {
 				if(maze[y+1][x]==2) {
-					System.out.println("Move down. You won!");
+					System.out.println("Move down\nYou won!");
 					return;
 				}
 				else if (maze[y+1][x]==1) {
@@ -43,7 +43,7 @@ public class MazeSolver {
 			// left
 			if (isValid(y,x-1)) {
 				if(maze[y][x-1]==2) {
-					System.out.println("Move left.\nYou won!");
+					System.out.println("Move left\nYou won!");
 					return;
 				}
 				else if (maze[y][x-1]==1) {
@@ -57,7 +57,7 @@ public class MazeSolver {
 			//up
 			if (isValid(y-1,x)) {
 				if(maze[y-1][x]==2) {
-					System.out.println("Move up. You won!");
+					System.out.println("Move up\nYou won!");
 					return;
 				}
 				else if (maze[y-1][x]==1) {
@@ -71,7 +71,7 @@ public class MazeSolver {
 			//right
 			if (isValid(y,x+1)) {
 				if(maze[y][x+1]==2) {
-					System.out.println("Move right. You won!");
+					System.out.println("Move right\nYou won!");
 					return;
 				}
 				else if (maze[y][x+1]==1) {
@@ -94,7 +94,7 @@ public class MazeSolver {
 	
 	public static boolean isValid(int y, int x) {
 		if (y<0 || y>=maze.length || 
-				x<0 || x>=maze[0].length) return false;
+				x<0 || x>=maze[y].length) return false;
 		return true;
 	}
 }
