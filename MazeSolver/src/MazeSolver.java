@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,25 +11,8 @@ public class MazeSolver {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		ArrayList<Maze> mazes=new ArrayList<Maze>();
+		ArrayList<Maze> mazes=readMazes();
 		
-		Maze m =new Maze();
-		
-		// fill list from file
-		Scanner in=new Scanner(new File("mazes.txt"));
-		int rows=Integer.parseInt(in.nextLine());
-		// initialize the maze
-		m.maze=new int[rows][];
-		
-		for (int i=0;i<rows;i++) {
-			// get a new line
-			String line=in.nextLine();
-			m.maze[i]=Arrays.stream(line.split(", ")).mapToInt(Integer:: parseInt).toArray();
-			
-		}
-		m.start=new Position(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine()));
-		
-		mazes.add(m);
 		
 		int i=0;
 		while (i<mazes.size()) {
@@ -41,6 +23,34 @@ public class MazeSolver {
 		
 	}
 			
+	private static ArrayList<Maze> readMazes() throws FileNotFoundException {
+		ArrayList<Maze> mazes=new ArrayList<Maze>();
+		Scanner in=new Scanner(new File("mazes.txt"));
+
+		while(in.hasNext()) {
+			// fill list from file
+			Maze m =new Maze();
+			int rows=Integer.parseInt(in.nextLine());
+			// initialize the maze
+			m.maze=new int[rows][];
+			
+			for (int i=0;i<rows;i++) {
+				// get a new line
+				String line=in.nextLine();
+				m.maze[i]=Arrays.stream(line.split(", ")).mapToInt(Integer:: parseInt).toArray();
+				
+			}
+			m.start=new Position(Integer.parseInt(in.nextLine()), Integer.parseInt(in.nextLine()));
+			mazes.add(m);
+			
+			in.nextLine();// toss the extra space
+			
+			
+		}
+		in.close();
+		return mazes;
+	}
+
 	private static boolean solveMaze(Maze m) {
 		
 		Position p=m.start;
